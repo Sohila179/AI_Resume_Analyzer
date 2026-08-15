@@ -1,0 +1,21 @@
+# Python virtual environment
+backend/venv/
+
+# Environment variables
+.env
+backend/.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Uploaded resumes
+backend/uploads/
+
+# VS Code
+.vscode/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
