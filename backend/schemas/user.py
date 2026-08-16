@@ -1,6 +1,5 @@
-from pydantic import BaseModel, Field,ConfigDict
+from pydantic import BaseModel, Field, ConfigDict
 from pydantic.networks import EmailStr
-
 
 
 class UserBase(BaseModel):
@@ -10,18 +9,20 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8, example="securepassword")
+    role: str = Field(default="job_seeker", example="job_seeker")
 
 
 class UserUpdate(UserBase):
-    password: str = Field(None, min_length=8, example="newpassword")
+    password: str | None = Field(None, min_length=8, example="newpassword")
 
 
 class UserResponse(UserBase):
     id: int = Field(..., example=1)
+    role: str
 
     model_config = ConfigDict(from_attributes=True)
+
 
 class userLogin(BaseModel):
     email: EmailStr = Field(..., example="user@example.com")
     password: str = Field(..., min_length=8, example="securepassword")
-    

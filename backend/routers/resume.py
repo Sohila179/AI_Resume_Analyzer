@@ -13,7 +13,7 @@ from pathlib import Path
 import shutil
 from models.resume import Resume
 from schemas.resume import ResumeResponse
-from services.resume_parser import extract_text_from_pdf
+from services.resume_parser import extract_text
 from services.resume_analyzer import analyze_resume
 from models.analysis_resume import AnalysisResume
 settings=Settings()
@@ -107,8 +107,8 @@ def analyze_resume_endpoint(
             detail="Resume not found"
         )
 
-    # Extract text from PDF
-    text = extract_text_from_pdf(resume.resume_file)
+    # Extract text 
+    text = extract_text(resume.resume_file)
 
     if not text.strip():
         raise HTTPException(
