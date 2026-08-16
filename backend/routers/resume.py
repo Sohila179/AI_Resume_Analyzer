@@ -14,6 +14,8 @@ import shutil
 from models.resume import Resume
 from schemas.resume import ResumeResponse
 from services.resume_parser import extract_text_from_pdf
+from services.resume_analyzer import analyze_resume
+from models.analysis_resume import AnalysisResume
 settings=Settings()
 
 resume_router = APIRouter(
@@ -81,8 +83,11 @@ def get_my_resumes(
 
     return resumes
 
-@router.post("/{resume_id}/analyze")
-def analyze_resume(
+
+     
+
+@resume_router.post("/{resume_id}/analyze")
+def analyze_resume_endpoint(
     resume_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -98,12 +103,52 @@ def analyze_resume(
 
     if not resume:
         raise HTTPException(
-            status_code=404,
+            status_code=status.HTTP_404_NOT_FOUND,
             detail="Resume not found"
         )
+
+    # Extract text from PDF
     text = extract_text_from_pdf(resume.resume_file)
 
-    return {
-        "resume_id": resume.id,
-        "text": text
-    }
+    if not text.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Could not extract text from resume"
+        )
+
+    # Analyze using Hugging Face
+    analysis = analyze_resume(text)
+
+    # Check if this resume was analyzed before
+    existing_analysis = (
+        db.query(AnalysisResume)
+        .filter(AnalysisResume.resume_id == resume.id)
+        .first()
+    )
+
+    if existing_analysis:
+        existing_analysis.skills = analysis["skills"]
+        existing_analysis.experience = analysis["experience"]
+        existing_analysis.education = analysis["education"]
+        existing_analysis.summary = analysis["summary"]
+
+        db.commit()
+        db.refresh(existing_analysis)
+
+        saved_analysis = existing_analysis
+
+    else:
+        saved_analysis = AnalysisResume(
+            skills=analysis["skills"],
+            experience=analysis["experience"],
+            education=analysis["education"],
+            summary=analysis["summary"],
+            resume_id=resume.id
+        )
+
+        db.add(saved_analysis)
+        db.commit()
+        db.refresh(saved_analysis)
+
+    return saved_analysis
+    

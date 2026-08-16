@@ -1,40 +1,48 @@
 from huggingface_hub import InferenceClient
 from config import Settings
+import json
 
 settings = Settings()
 
 client = InferenceClient(
     provider="together",
-    api_key=settings.HF_TOKEN
+    api_key=settings.HF_API_TOKEN
 )
 
 
 def analyze_resume(text: str) -> dict:
-
     prompt = f"""
-You are a professional resume analyzer.
+Analyze this resume and return ONLY valid JSON.
 
-Analyze the resume below and return ONLY valid JSON.
-
-The JSON must have exactly these fields:
+Required JSON format:
 
 {{
-    "skills": "List the candidate's important skills",
-    "experience": "Summarize the candidate's work experience",
-    "education": "Summarize the candidate's education",
-    "summary": "Give a short professional summary"
+    "skills": ["Python", "FastAPI", "SQL"],
+    "experience": "Short summary of work and project experience",
+    "education": "Short summary of education",
+    "summary": "Short professional summary"
 }}
+
+Rules:
+- skills MUST be an array of strings.
+- experience MUST be a string.
+- education MUST be a string.
+- summary MUST be a string.
+- Return ONLY JSON.
+- Do NOT use markdown.
+- Do NOT use ```json.
+- Do NOT add any explanation.
 
 Resume:
 {text}
 """
 
     response = client.chat.completions.create(
-        model=settings.HF_MODEL.split(":")[0],
+        model=settings.HF_MODEL,
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert resume analyzer. Return only valid JSON."
+                "content": "You are a professional resume analyzer. Return only valid JSON."
             },
             {
                 "role": "user",
@@ -45,11 +53,59 @@ Resume:
         max_tokens=1000
     )
 
-    content = response.choices[0].message.content
+    # Debug: نشوف الـ response الحقيقي من AI
+    print("========== AI RESPONSE ==========")
+    print(response)
+    print("=================================")
 
-    if not content:
+    if not response.choices:
+        raise ValueError("AI returned no choices")
+
+    message = response.choices[0].message
+
+    if not message:
+        raise ValueError("AI returned no message")
+
+    content = message.content
+
+    print("========== AI CONTENT ==========")
+    print(repr(content))
+    print("================================")
+
+    if not content or not content.strip():
         raise ValueError("AI returned an empty response")
 
-    import json
+    content = content.strip()
 
-    return json.loads(content)
+    # لو الموديل رجع ```json ... ```
+    if content.startswith("```"):
+        content = content.replace("```json", "")
+        content = content.replace("```", "")
+        content = content.strip()
+
+    try:
+        analysis = json.loads(content)
+    except json.JSONDecodeError as e:
+        print("AI returned invalid JSON:")
+        print(content)
+        raise ValueError(f"AI returned invalid JSON: {e}")
+
+    required_fields = {
+        "skills",
+        "experience",
+        "education",
+        "summary"
+    }
+
+    if set(analysis.keys()) != required_fields:
+        raise ValueError(
+            f"AI response has invalid fields. Got: {list(analysis.keys())}"
+        )
+
+    if not isinstance(analysis["skills"], list):
+        raise ValueError("AI returned skills as something other than a list")
+
+    if not all(isinstance(skill, str) for skill in analysis["skills"]):
+        raise ValueError("Every skill must be a string")
+
+    return analysis
