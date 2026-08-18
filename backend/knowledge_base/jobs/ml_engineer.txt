@@ -1,0 +1,27 @@
+Job Title: Machine Learning Engineer
+
+Description:
+A Machine Learning Engineer develops, trains, evaluates, and deploys machine learning models.
+
+Required Technical Skills:
+
+* Python
+* Machine Learning
+* Deep Learning
+* SQL
+* Git
+
+Common Tools:
+
+* Python
+* Scikit-learn
+* TensorFlow
+* PyTorch
+* Git
+
+Recommended Experience:
+
+* Machine Learning projects
+* Model training
+* Model evaluation
+* Model deployment

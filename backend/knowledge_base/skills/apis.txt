@@ -1,0 +1,27 @@
+Skill: APIs
+
+Category:
+Application Development
+
+Description:
+APIs allow different software applications and services to communicate with each other.
+
+Core Topics:
+
+* HTTP Requests
+* REST APIs
+* JSON
+* API Endpoints
+* Authentication
+
+Used In:
+
+* AI Engineer
+* Backend Developer
+* Machine Learning Engineer
+
+Recommended Practice:
+
+* Build a simple REST API.
+* Consume an external API.
+* Integrate an AI model through an API.

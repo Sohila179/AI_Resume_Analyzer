@@ -1,0 +1,30 @@
+Skill: RAG
+
+Category:
+Generative AI
+
+Description:
+Retrieval-Augmented Generation combines information retrieval with language generation.
+
+Core Topics:
+
+* Document Loading
+* Chunking
+* Embeddings
+* Vector Search
+* Retrieval
+* Context
+* Prompt Construction
+* Generation
+
+Used In:
+
+* AI Engineer
+* Generative AI Engineer
+
+Recommended Practice:
+
+* Build a document question-answering system.
+* Create embeddings for documents.
+* Implement vector similarity search.
+* Connect retrieved context to an LLM.

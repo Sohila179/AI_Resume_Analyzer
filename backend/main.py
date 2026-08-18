@@ -11,6 +11,7 @@ from routers import jobs
 from routers import auth
 from routers import job_matching
 from routers.resume import resume_router
+from routers import career_advisor
 Base.metadata.create_all(bind=engine)
 settings = Settings()
 
@@ -25,6 +26,7 @@ app.include_router(auth.router)
 app.include_router(resume_router)
 app.include_router(jobs.router)
 app.include_router(job_matching.router)
+app.include_router(career_advisor.router)
 @app.get("/")
 async def read_root():
     return {"Hello": "World"}

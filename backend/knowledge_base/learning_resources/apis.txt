@@ -1,0 +1,18 @@
+Topic: APIs
+
+Level:
+Intermediate
+
+Topics to Learn:
+
+- HTTP Requests
+- REST APIs
+- JSON
+- API Endpoints
+- Authentication
+
+Recommended Practice:
+
+- Build a simple REST API.
+- Consume an external API.
+- Integrate an AI model through an API.

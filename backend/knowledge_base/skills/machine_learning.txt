@@ -1,0 +1,29 @@
+Skill: Machine Learning
+
+Category:
+Artificial Intelligence
+
+Description:
+Machine Learning is a field of AI focused on building systems that learn patterns from data.
+
+Core Topics:
+
+* Supervised Learning
+* Unsupervised Learning
+* Model Evaluation
+* Feature Engineering
+* Classification
+* Regression
+* Clustering
+
+Used In:
+
+* AI Engineer
+* Machine Learning Engineer
+* Data Scientist
+
+Recommended Practice:
+
+* Build classification projects.
+* Build regression projects.
+* Evaluate machine learning models.

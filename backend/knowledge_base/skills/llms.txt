@@ -1,0 +1,27 @@
+Skill: Large Language Models
+
+Category:
+Generative AI
+
+Description:
+Large Language Models are AI models designed to understand and generate human language.
+
+Core Topics:
+
+* Prompt Engineering
+* Text Generation
+* Context
+* Model APIs
+* LLM Applications
+
+Used In:
+
+* AI Engineer
+* Generative AI Engineer
+* NLP Engineer
+
+Recommended Practice:
+
+* Build an application using an LLM API.
+* Experiment with prompts.
+* Build a question-answering application.

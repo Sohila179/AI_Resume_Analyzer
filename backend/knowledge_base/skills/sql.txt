@@ -1,0 +1,29 @@
+Skill: SQL
+
+Category:
+Database
+
+Description:
+SQL is used to store, query, and manage data in relational databases.
+
+Core Topics:
+
+* SELECT
+* WHERE
+* JOIN
+* GROUP BY
+* Aggregation
+* Subqueries
+
+Used In:
+
+* AI Engineer
+* Machine Learning Engineer
+* Data Scientist
+* Backend Developer
+
+Recommended Practice:
+
+* Query a relational database.
+* Practice JOIN operations.
+* Build projects that use SQL databases.

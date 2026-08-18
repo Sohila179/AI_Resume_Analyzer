@@ -1,0 +1,18 @@
+Skill: Python
+
+Category:
+Programming Language
+
+Description:
+Python is a general-purpose programming language
+widely used in software development, data analysis,
+machine learning, and artificial intelligence.
+
+Used In:
+- AI Engineer
+- Machine Learning Engineer
+- Data Scientist
+- Backend Developer
+
+Prerequisites:
+Basic programming concepts.

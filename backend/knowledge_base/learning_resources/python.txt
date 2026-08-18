@@ -1,0 +1,20 @@
+Topic: Python
+
+Level:
+Beginner
+
+Topics to Learn:
+
+* Variables
+* Data Types
+* Conditions
+* Loops
+* Functions
+* Object-Oriented Programming
+* Modules
+
+Recommended Practice:
+
+* Build small Python programs.
+* Solve programming problems.
+* Build a simple Python project.

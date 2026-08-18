@@ -1,0 +1,18 @@
+Topic: Deep Learning
+
+Level:
+Advanced
+
+Topics to Learn:
+
+* Neural Networks
+* CNN
+* Transformers
+* Model Training
+* Model Evaluation
+
+Recommended Practice:
+
+* Build a neural network.
+* Build a CNN application.
+* Experiment with transformer models.

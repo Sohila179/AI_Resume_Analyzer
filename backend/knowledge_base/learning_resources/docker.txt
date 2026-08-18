@@ -1,0 +1,14 @@
+Topic: Docker
+
+Level:
+Beginner
+
+Topics to Learn:
+- Containers
+- Images
+- Dockerfile
+- Docker Compose
+
+Recommended Practice:
+- Containerize a Python application
+- Create a Docker Compose project

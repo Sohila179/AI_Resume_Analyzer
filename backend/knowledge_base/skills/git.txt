@@ -1,0 +1,28 @@
+Skill: Git
+
+Category:
+Version Control
+
+Description:
+Git is a version control system used to track changes in software projects.
+
+Core Topics:
+
+* Repositories
+* Commits
+* Branches
+* Merging
+* Pull Requests
+
+Used In:
+
+* AI Engineer
+* Machine Learning Engineer
+* Software Developer
+* Data Scientist
+
+Recommended Practice:
+
+* Create a Git repository.
+* Practice branches and commits.
+* Collaborate on a project using Git.

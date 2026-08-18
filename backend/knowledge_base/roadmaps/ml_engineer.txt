@@ -1,0 +1,46 @@
+Career: Machine Learning Engineer
+
+Stage 1:
+Learn programming fundamentals.
+
+Recommended skill:
+
+* Python
+
+Stage 2:
+Learn mathematics and statistics.
+
+Recommended skills:
+
+* Linear Algebra
+* Probability
+* Statistics
+
+Stage 3:
+Learn Machine Learning.
+
+Recommended skills:
+
+* Supervised Learning
+* Unsupervised Learning
+* Model Evaluation
+* Feature Engineering
+
+Stage 4:
+Learn Deep Learning.
+
+Recommended skills:
+
+* Neural Networks
+* CNN
+* Transformers
+
+Stage 5:
+Learn Machine Learning Engineering.
+
+Recommended skills:
+
+* Model Deployment
+* APIs
+* Git
+* Docker

@@ -1,0 +1,28 @@
+Skill: Deep Learning
+
+Category:
+Artificial Intelligence
+
+Description:
+Deep Learning uses neural networks to learn complex patterns from data.
+
+Core Topics:
+
+* Neural Networks
+* CNN
+* Transformers
+* Model Training
+* Model Evaluation
+
+Used In:
+
+* AI Engineer
+* Machine Learning Engineer
+* Computer Vision Engineer
+* NLP Engineer
+
+Recommended Practice:
+
+* Build a neural network project.
+* Build a CNN project.
+* Experiment with transformer models.

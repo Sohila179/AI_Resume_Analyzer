@@ -1,0 +1,19 @@
+Topic: Machine Learning
+
+Level:
+Intermediate
+
+Topics to Learn:
+
+* Supervised Learning
+* Unsupervised Learning
+* Classification
+* Regression
+* Clustering
+* Model Evaluation
+
+Recommended Practice:
+
+* Build classification projects.
+* Build regression projects.
+* Compare different machine learning models.

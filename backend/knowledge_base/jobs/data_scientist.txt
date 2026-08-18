@@ -1,0 +1,25 @@
+Job Title: Data Scientist
+
+Description:
+A Data Scientist analyzes data and builds models to extract useful insights and support decision making.
+
+Required Technical Skills:
+
+* Python
+* SQL
+* Statistics
+* Machine Learning
+
+Common Tools:
+
+* Python
+* Pandas
+* Scikit-learn
+* SQL
+
+Recommended Experience:
+
+* Data analysis projects
+* Machine Learning projects
+* Statistical analysis
+* Data visualization
