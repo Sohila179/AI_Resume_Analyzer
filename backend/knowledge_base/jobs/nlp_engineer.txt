@@ -1,0 +1,30 @@
+Job Title: NLP Engineer
+
+Description:
+An NLP Engineer develops artificial intelligence systems that understand and process human language.
+
+Required Technical Skills:
+
+* Python
+* Natural Language Processing
+* Machine Learning
+* Deep Learning
+* SQL
+* Git
+
+Common Tools:
+
+* Python
+* PyTorch
+* TensorFlow
+* Hugging Face
+* Transformers
+* Git
+
+Recommended Experience:
+
+* NLP projects
+* Text classification
+* Sentiment analysis
+* Text processing
+* Transformer projects
