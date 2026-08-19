@@ -1,0 +1,30 @@
+Job Title: Computer Vision Engineer
+
+Description:
+A Computer Vision Engineer develops AI systems that process and understand images and videos.
+
+Required Technical Skills:
+
+* Python
+* Computer Vision
+* Deep Learning
+* Machine Learning
+* Image Processing
+* Git
+
+Common Tools:
+
+* Python
+* OpenCV
+* TensorFlow
+* PyTorch
+* Keras
+* Git
+
+Recommended Experience:
+
+* Computer Vision projects
+* Image classification
+* Object detection
+* Image processing
+* Deep Learning projects
