@@ -1,0 +1,31 @@
+Job Title: Generative AI Engineer
+
+Description:
+A Generative AI Engineer develops applications using large language models and generative artificial intelligence technologies.
+
+Required Technical Skills:
+
+* Python
+* Machine Learning
+* Deep Learning
+* LLMs
+* APIs
+* RAG
+* Git
+
+Common Tools:
+
+* Python
+* LangChain
+* Hugging Face
+* PyTorch
+* Vector Databases
+* Git
+
+Recommended Experience:
+
+* LLM projects
+* RAG projects
+* AI application development
+* Prompt engineering
+* Model deployment
