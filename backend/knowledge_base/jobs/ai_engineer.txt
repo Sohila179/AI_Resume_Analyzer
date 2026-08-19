@@ -1,8 +1,10 @@
 Job Title: AI Engineer
 
 Description:
-An AI Engineer designs and develops artificial intelligence
-systems and applications.
+An AI Engineer designs, develops, tests, and deploys artificial intelligence
+systems and applications. AI Engineers work with machine learning models,
+deep learning techniques, data processing, APIs, and software engineering
+practices to build practical AI solutions.
 
 Required Technical Skills:
 - Python
@@ -11,14 +13,91 @@ Required Technical Skills:
 - SQL
 - APIs
 - Git
+- Data Structures and Algorithms
+- Object-Oriented Programming
+- Model Deployment
+- REST APIs
+
+Machine Learning Skills:
+- Supervised Learning
+- Unsupervised Learning
+- Classification
+- Regression
+- Clustering
+- Model Evaluation
+- Feature Engineering
+- Data Preprocessing
+
+Deep Learning Skills:
+- Neural Networks
+- CNN
+- RNN
+- Transfer Learning
+- TensorFlow
+- Keras
+- PyTorch
 
 Common Tools:
 - Python
 - TensorFlow
+- Keras
 - PyTorch
+- Scikit-learn
+- NumPy
+- Pandas
 - Git
+- GitHub
+- Docker
 
 Recommended Experience:
 - Machine Learning projects
+- Deep Learning projects
 - AI application development
+- Computer Vision projects
+- Natural Language Processing projects
 - Model deployment
+- REST API development
+- Working with databases
+
+Recommended Projects:
+- Image Classification System
+- Resume Analyzer
+- Recommendation System
+- Chatbot
+- Object Detection System
+- Sentiment Analysis System
+- AI-powered Web Application
+
+Career Roadmap:
+1. Learn Python programming.
+2. Learn data structures and algorithms.
+3. Learn NumPy and Pandas.
+4. Learn SQL and databases.
+5. Study Machine Learning.
+6. Practice with Scikit-learn.
+7. Study Deep Learning.
+8. Learn TensorFlow, Keras, or PyTorch.
+9. Build real AI projects.
+10. Learn APIs and backend development.
+11. Learn model deployment.
+12. Learn Git, GitHub, and Docker.
+
+Recommended Portfolio:
+A strong AI Engineer portfolio should contain several practical projects
+that demonstrate machine learning, deep learning, backend integration,
+APIs, and model deployment.
+
+Recommended Experience Level:
+Entry-level AI Engineer roles may accept candidates with academic projects,
+personal projects, internships, or training experience instead of full-time
+professional experience.
+
+Important Skills:
+- Problem Solving
+- Analytical Thinking
+- Programming
+- Machine Learning
+- Deep Learning
+- Software Engineering
+- Communication
+- Continuous Learning
