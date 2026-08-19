@@ -1,0 +1,63 @@
+# Deep Learning Course
+
+## Description
+
+A Deep Learning course focuses on neural networks and modern deep learning techniques used to solve complex problems involving images, text, audio, and other types of data.
+
+## Prerequisites
+
+* Python programming
+* Basic Machine Learning
+* Basic Statistics
+* Basic Linear Algebra
+* Understanding of data preprocessing
+
+## Core Topics
+
+* Neural Networks
+* Artificial Neural Networks (ANN)
+* Activation Functions
+* Loss Functions
+* Gradient Descent
+* Backpropagation
+* Optimization
+* Convolutional Neural Networks (CNN)
+* Recurrent Neural Networks (RNN)
+* Long Short-Term Memory (LSTM)
+* Transfer Learning
+* Regularization
+* Dropout
+* Batch Normalization
+* Model Evaluation
+
+## Common Tools
+
+* Python
+* TensorFlow
+* Keras
+* PyTorch
+* NumPy
+* Pandas
+* Scikit-learn
+
+## Recommended Projects
+
+* Image Classification
+* Object Detection
+* Face Recognition
+* Handwritten Digit Recognition
+* Image Segmentation
+* Time Series Prediction
+
+## Recommended For
+
+* Deep Learning Engineer
+* Machine Learning Engineer
+* Computer Vision Engineer
+* AI Engineer
+* NLP Engineer
+* Generative AI Engineer
+
+## Learning Outcome
+
+After completing this course, learners should understand how to design, train, evaluate, and improve deep neural networks and apply them to real-world AI problems.
