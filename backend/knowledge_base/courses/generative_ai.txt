@@ -1,0 +1,61 @@
+# Generative AI Course
+
+## Description
+
+A Generative AI course focuses on artificial intelligence systems that can generate new content such as text, code, images, audio, and other forms of data.
+
+## Prerequisites
+
+* Python programming
+* Basic Machine Learning
+* Basic Deep Learning
+* Basic understanding of neural networks
+* Basic understanding of probability and statistics
+
+## Core Topics
+
+* Generative AI Fundamentals
+* Large Language Models (LLMs)
+* Transformers
+* Attention Mechanism
+* Prompt Engineering
+* Embeddings
+* Vector Databases
+* Retrieval-Augmented Generation (RAG)
+* Fine-Tuning
+* Model Evaluation
+* AI Agents
+* Multimodal AI
+* Responsible AI
+
+## Common Tools
+
+* Python
+* PyTorch
+* Hugging Face
+* LangChain
+* Vector Databases
+* Google Gemini API
+* OpenAI API
+
+## Recommended Projects
+
+* RAG Chatbot
+* Document Question Answering System
+* AI Career Advisor
+* AI Resume Analyzer
+* AI Research Assistant
+* AI Agent
+* Text Generation Application
+
+## Recommended For
+
+* Generative AI Engineer
+* AI Engineer
+* Machine Learning Engineer
+* NLP Engineer
+* Deep Learning Engineer
+
+## Learning Outcome
+
+After completing this course, learners should understand how modern generative AI systems work and how to build applications using LLMs, embeddings, RAG, and AI agents.
