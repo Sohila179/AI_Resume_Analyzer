@@ -1,0 +1,29 @@
+Job Title: Deep Learning Engineer
+
+Description:
+A Deep Learning Engineer develops and deploys deep learning models for solving complex artificial intelligence problems.
+
+Required Technical Skills:
+
+* Python
+* Deep Learning
+* Machine Learning
+* Neural Networks
+* SQL
+* Git
+
+Common Tools:
+
+* Python
+* TensorFlow
+* PyTorch
+* Keras
+* Git
+
+Recommended Experience:
+
+* Deep Learning projects
+* Neural network projects
+* Model training
+* Model evaluation
+* Model deployment
