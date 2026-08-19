@@ -1,0 +1,62 @@
+# Python for AI Course
+
+## Description
+
+A Python for AI course focuses on the Python programming skills required to build machine learning, deep learning, data science, and artificial intelligence applications.
+
+## Prerequisites
+
+* Basic computer skills
+* No previous programming experience is required
+
+## Core Topics
+
+* Python Syntax
+* Variables and Data Types
+* Conditional Statements
+* Loops
+* Functions
+* Lists
+* Tuples
+* Dictionaries
+* Sets
+* Object-Oriented Programming
+* File Handling
+* Exception Handling
+* Modules and Packages
+* Virtual Environments
+* NumPy
+* Pandas
+* Data Visualization
+* Basic Data Preprocessing
+
+## Common Tools
+
+* Python
+* NumPy
+* Pandas
+* Matplotlib
+* Jupyter Notebook
+* VS Code
+
+## Recommended Projects
+
+* Data Analysis Project
+* Data Cleaning Project
+* Exploratory Data Analysis
+* Simple Machine Learning Project
+* CSV Data Processing Application
+
+## Recommended For
+
+* AI Engineer
+* Machine Learning Engineer
+* Data Scientist
+* Data Analyst
+* NLP Engineer
+* Computer Vision Engineer
+* Generative AI Engineer
+
+## Learning Outcome
+
+After completing this course, learners should be comfortable using Python and common Python libraries required for artificial intelligence and machine learning projects.
