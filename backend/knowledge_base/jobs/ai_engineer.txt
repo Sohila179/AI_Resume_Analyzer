@@ -1,10 +1,10 @@
 Job Title: AI Engineer
 
 Description:
-An AI Engineer designs, develops, tests, and deploys artificial intelligence
-systems and applications. AI Engineers work with machine learning models,
-deep learning techniques, data processing, APIs, and software engineering
-practices to build practical AI solutions.
+An AI Engineer designs, develops, tests, deploys, and maintains
+artificial intelligence systems and machine learning applications.
+AI Engineers work with machine learning models, deep learning,
+APIs, data processing, and AI application development.
 
 Required Technical Skills:
 - Python
@@ -13,91 +13,82 @@ Required Technical Skills:
 - SQL
 - APIs
 - Git
-- Data Structures and Algorithms
-- Object-Oriented Programming
-- Model Deployment
-- REST APIs
-
-Machine Learning Skills:
-- Supervised Learning
-- Unsupervised Learning
-- Classification
-- Regression
-- Clustering
-- Model Evaluation
-- Feature Engineering
-- Data Preprocessing
-
-Deep Learning Skills:
-- Neural Networks
-- CNN
-- RNN
-- Transfer Learning
-- TensorFlow
-- Keras
-- PyTorch
 
 Common Tools:
 - Python
 - TensorFlow
-- Keras
 - PyTorch
 - Scikit-learn
-- NumPy
 - Pandas
+- NumPy
 - Git
-- GitHub
-- Docker
+- Jupyter Notebook
 
 Recommended Experience:
 - Machine Learning projects
 - Deep Learning projects
 - AI application development
-- Computer Vision projects
-- Natural Language Processing projects
+- Model training and evaluation
 - Model deployment
-- REST API development
-- Working with databases
+- API development
+- Data preprocessing
+
+Core Responsibilities:
+- Develop and train machine learning models.
+- Develop deep learning models.
+- Prepare and preprocess data.
+- Evaluate model performance.
+- Integrate AI models into applications.
+- Build APIs for AI and machine learning applications.
+- Deploy machine learning models.
+- Maintain and improve AI systems.
+- Work with software engineers and data teams.
+
+Important Topics to Learn:
+- Python for AI
+- Supervised Learning
+- Unsupervised Learning
+- Model Evaluation
+- Feature Engineering
+- Deep Learning
+- Neural Networks
+- Computer Vision
+- Natural Language Processing
+- APIs
+- Model Deployment
+- Git and Version Control
 
 Recommended Projects:
-- Image Classification System
-- Resume Analyzer
-- Recommendation System
-- Chatbot
-- Object Detection System
-- Sentiment Analysis System
-- AI-powered Web Application
+- Build a machine learning prediction system.
+- Build an image classification application.
+- Build a text classification application.
+- Deploy a machine learning model using an API.
+- Build an AI application using a trained model.
 
 Career Roadmap:
-1. Learn Python programming.
-2. Learn data structures and algorithms.
-3. Learn NumPy and Pandas.
-4. Learn SQL and databases.
-5. Study Machine Learning.
-6. Practice with Scikit-learn.
-7. Study Deep Learning.
-8. Learn TensorFlow, Keras, or PyTorch.
-9. Build real AI projects.
-10. Learn APIs and backend development.
-11. Learn model deployment.
-12. Learn Git, GitHub, and Docker.
+1. Learn Python.
+2. Learn NumPy and Pandas.
+3. Learn Machine Learning fundamentals.
+4. Practice supervised and unsupervised learning.
+5. Learn model evaluation and feature engineering.
+6. Learn Deep Learning.
+7. Practice with TensorFlow or PyTorch.
+8. Learn APIs and AI application development.
+9. Learn model deployment.
+10. Build practical AI projects.
 
-Recommended Portfolio:
-A strong AI Engineer portfolio should contain several practical projects
-that demonstrate machine learning, deep learning, backend integration,
-APIs, and model deployment.
+Entry-Level Skills:
+- Python
+- Basic SQL
+- Machine Learning fundamentals
+- Basic Deep Learning
+- Git
+- Basic API development
 
-Recommended Experience Level:
-Entry-level AI Engineer roles may accept candidates with academic projects,
-personal projects, internships, or training experience instead of full-time
-professional experience.
-
-Important Skills:
-- Problem Solving
-- Analytical Thinking
-- Programming
-- Machine Learning
-- Deep Learning
-- Software Engineering
-- Communication
-- Continuous Learning
+Advanced Skills:
+- Advanced Deep Learning
+- Large Language Models
+- RAG
+- MLOps
+- Cloud deployment
+- Model optimization
