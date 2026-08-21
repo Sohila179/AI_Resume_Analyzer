@@ -1,0 +1,779 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AI Resume Analyzer</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<header class="dashboard-header">
+
+    <div class="brand">
+        <span class="brand-icon">✦</span>
+        <span>AI Resume Analyzer</span>
+    </div>
+
+    <div class="header-actions">
+        <span class="status-pill">
+            <span class="status-dot"></span>
+            AI Online
+        </span>
+
+        <button
+            id="logoutButton"
+            class="btn btn-secondary"
+        >
+            Logout
+        </button>
+    </div>
+
+</header>
+
+
+<div class="dashboard-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">✦</div>
+
+            <div>
+                <strong>Resume AI</strong>
+                <small>Career Intelligence</small>
+            </div>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="#overview" class="nav-item active">
+                <span>⌂</span>
+                Overview
+            </a>
+
+            <a href="#resumes" class="nav-item">
+                <span>▣</span>
+                My Resumes
+            </a>
+
+            <a href="#jobs" class="nav-item">
+                <span>◈</span>
+                Job Matches
+            </a>
+
+            <a href="#careerAdvisorSection" class="nav-item">
+                <span>✦</span>
+                Career AI
+            </a>
+
+            <a href="#roadmapSection" class="nav-item">
+                <span>➜</span>
+                Roadmap
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-ai-card">
+
+                <div class="mini-ai-icon">✦</div>
+
+                <strong>AI Career Coach</strong>
+
+                <p>
+                    Get personalized recommendations
+                    based on your resume.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="dashboard-container">
+
+        <!-- HERO -->
+
+        <section
+            id="overview"
+            class="welcome-section"
+        >
+
+            <div class="hero-content">
+
+                <div>
+
+                    <span class="eyebrow">
+                        ✦ AI CAREER INTELLIGENCE
+                    </span>
+
+                    <h1 id="dashboardTitle">
+                        Dashboard
+                    </h1>
+
+                    <p id="dashboardDescription">
+                        Welcome to AI Resume Analyzer.
+                    </p>
+
+                </div>
+
+                <div class="hero-decoration">
+                    <div class="hero-orbit"></div>
+                    <div class="hero-core">✦</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    ✦
+                </div>
+
+                <div>
+                    <span>Resume Score</span>
+                    <strong id="resumeScore">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    ◈
+                </div>
+
+                <div>
+                    <span>Detected Skills</span>
+                    <strong id="skillsCount">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+                    <span>Job Matches</span>
+                    <strong id="matchesCount">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    !
+                </div>
+
+                <div>
+                    <span>Missing Skills</span>
+                    <strong id="missingSkillsCount">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= JOB SEEKER ================= -->
+
+        <div
+            id="jobSeekerDashboard"
+            style="display:none;"
+        >
+
+
+            <!-- UPLOAD -->
+
+            <section class="dashboard-card upload-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            STEP 01
+                        </span>
+
+                        <h2>
+                            Upload your resume
+                        </h2>
+
+                        <p>
+                            Let AI analyze your experience,
+                            skills and education.
+                        </p>
+
+                    </div>
+
+                    <div class="upload-icon">
+                        ↑
+                    </div>
+
+                </div>
+
+
+                <form id="uploadForm">
+
+                    <div class="drop-zone">
+
+                        <div class="drop-icon">
+                            ↑
+                        </div>
+
+                        <strong>
+                            Choose your resume
+                        </strong>
+
+                        <span>
+                            PDF or DOCX · Maximum recommended size 10MB
+                        </span>
+
+                        <input
+                            type="file"
+                            id="resumeFile"
+                            accept=".pdf,.docx"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary upload-button"
+                    >
+                        Analyze Resume
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <p
+                    id="uploadMessage"
+                    class="message"
+                ></p>
+
+            </section>
+
+
+            <!-- ================= SCORE + PROGRESS ================= -->
+
+            <section class="insights-grid">
+
+                <div class="dashboard-card score-card">
+
+                    <div class="card-top">
+
+                        <div>
+
+                            <span class="section-label">
+                                AI ANALYSIS
+                            </span>
+
+                            <h2>
+                                Resume Score
+                            </h2>
+
+                        </div>
+
+                        <span class="live-badge">
+                            LIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-wrapper">
+
+                        <div class="score-circle">
+
+                            <div class="score-circle-inner">
+
+                                <strong id="scoreCircleValue">
+                                    --
+                                </strong>
+
+                                <span>
+                                    / 100
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="score-description">
+                        Your score will be calculated
+                        after analyzing your resume.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-card progress-card">
+
+                    <span class="section-label">
+                        CAREER PROGRESS
+                    </span>
+
+                    <h2>
+                        AI Engineer Path
+                    </h2>
+
+                    <div class="progress-list">
+
+                        <div class="progress-row">
+
+                            <div>
+                                <span>Python</span>
+                                <strong>✓</strong>
+                            </div>
+
+                            <div class="progress-bar">
+                                <span style="width:100%"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-row">
+
+                            <div>
+                                <span>Machine Learning</span>
+                                <strong>--</strong>
+                            </div>
+
+                            <div class="progress-bar">
+                                <span style="width:45%"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-row">
+
+                            <div>
+                                <span>Deep Learning</span>
+                                <strong>--</strong>
+                            </div>
+
+                            <div class="progress-bar">
+                                <span style="width:20%"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-row">
+
+                            <div>
+                                <span>TensorFlow / PyTorch</span>
+                                <strong>--</strong>
+                            </div>
+
+                            <div class="progress-bar">
+                                <span style="width:10%"></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= RESUMES ================= -->
+
+            <section
+                id="resumes"
+                class="dashboard-card"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            DOCUMENTS
+                        </span>
+
+                        <h2>
+                            My Resumes
+                        </h2>
+
+                        <p>
+                            Manage and analyze your uploaded resumes.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="refreshResumes"
+                        class="btn btn-secondary"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+
+                <div id="resumeList">
+
+                    <p>
+                        Loading resumes...
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ANALYSIS ================= -->
+
+            <section
+                id="analysisSection"
+                class="dashboard-card"
+                style="display:none;"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            AI REPORT
+                        </span>
+
+                        <h2>
+                            Resume Analysis
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div id="analysisResult"></div>
+
+            </section>
+
+
+            <!-- ================= JOBS ================= -->
+
+            <section
+                id="jobRecommendationsSection"
+                class="dashboard-card"
+                style="display:none;"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            OPPORTUNITIES
+                        </span>
+
+                        <h2>
+                            Job Recommendations
+                        </h2>
+
+                        <p>
+                            Jobs ranked according to your resume.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="jobRecommendationsResult"></div>
+
+            </section>
+
+
+            <!-- ================= CAREER AI ================= -->
+
+            <section
+                id="careerAdvisorSection"
+                class="dashboard-card career-ai-card"
+                style="display:none;"
+            >
+
+                <div class="ai-header">
+
+                    <div class="ai-avatar">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <span class="section-label">
+                            AI CAREER COACH
+                        </span>
+
+                        <h2>
+                            Career Advisor
+                        </h2>
+
+                        <p>
+                            Ask anything about your next career move.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <textarea
+                    id="careerQuestion"
+                    rows="5"
+                    placeholder="What should I learn next to become an AI Engineer?"
+                ></textarea>
+
+
+                <button
+                    id="askCareerButton"
+                    class="btn btn-primary"
+                >
+                    Ask Career Advisor
+                    <span>→</span>
+                </button>
+
+
+                <div
+                    id="careerAdvisorResult"
+                    class="analysis-box"
+                    style="display:none;"
+                ></div>
+
+            </section>
+
+
+            <!-- ================= ROADMAP ================= -->
+
+            <section
+                id="roadmapSection"
+                class="dashboard-card roadmap-card"
+                style="display:none;"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            YOUR NEXT STEPS
+                        </span>
+
+                        <h2>
+                            Personalized Learning Roadmap
+                        </h2>
+
+                        <p>
+                            Build the skills you are missing
+                            in the right order.
+                        </p>
+
+                    </div>
+
+
+                    <div class="roadmap-icon">
+                        ◈
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="generateRoadmapButton"
+                    class="btn btn-primary"
+                >
+                    Generate My Roadmap
+                    <span>→</span>
+                </button>
+
+
+                <div
+                    id="roadmapResult"
+                    class="analysis-box"
+                    style="display:none;"
+                ></div>
+
+            </section>
+
+        </div>
+
+
+        <!-- ================= EMPLOYER ================= -->
+
+        <div
+            id="employerDashboard"
+            style="display:none;"
+        >
+
+            <section class="dashboard-card employer-create">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        EMPLOYER
+                    </span>
+
+                    <h2>
+                        Create a Job Opportunity
+                    </h2>
+
+                    <p>
+                        Publish a role and find candidates
+                        with the right skills.
+                    </p>
+
+                </div>
+
+
+                <form id="jobForm">
+
+                    <input
+                        type="text"
+                        id="jobTitle"
+                        placeholder="Job Title"
+                        required
+                    >
+
+
+                    <textarea
+                        id="jobContent"
+                        placeholder="Job Description"
+                        rows="6"
+                        required
+                    ></textarea>
+
+
+                    <input
+                        type="text"
+                        id="jobSkills"
+                        placeholder="Required Skills (Python, SQL, Machine Learning)"
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Publish Job
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <p
+                    id="jobMessage"
+                    class="message"
+                ></p>
+
+            </section>
+
+
+            <section class="dashboard-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            YOUR OPPORTUNITIES
+                        </span>
+
+                        <h2>
+                            My Jobs
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="refreshJobs"
+                        class="btn btn-secondary"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="jobSearch"
+                    placeholder="Search jobs..."
+                >
+
+
+                <div id="jobList">
+
+                    <p>
+                        Loading jobs...
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="../js/api.js"></script>
+<script src="../js/dashboard.js"></script>
+<script src="../js/employer.js"></script>
+
+</body>
+
+</html>

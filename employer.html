@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard - AI Resume Analyzer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<header class="dashboard-header">
+    <div>
+        <h2>AI Resume Analyzer</h2>
+    </div>
+
+    <button id="logoutButton" class="btn btn-secondary">
+        Logout
+    </button>
+</header>
+
+<main class="dashboard-container">
+
+    <section class="welcome-section">
+        <h1>Employer Dashboard</h1>
+        <p>Create and manage your job opportunities.</p>
+    </section>
+
+    <!-- CREATE JOB -->
+
+    <section class="dashboard-card">
+
+        <h2>Create Job</h2>
+
+        <form id="jobForm">
+
+            <input
+                type="text"
+                id="jobTitle"
+                placeholder="Job Title"
+                required
+            >
+
+            <textarea
+                id="jobContent"
+                placeholder="Job Description"
+                rows="6"
+                required
+            ></textarea>
+
+            <input
+                type="text"
+                id="jobSkills"
+                placeholder="Required Skills (Python, SQL, Machine Learning)"
+            >
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Create Job
+            </button>
+
+        </form>
+
+        <p id="jobMessage" class="message"></p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="dashboard-card">
+
+        <div class="section-header">
+
+            <h2>My Jobs</h2>
+
+            <button
+                id="refreshJobs"
+                class="btn btn-secondary"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+        <input
+            type="text"
+            id="jobSearch"
+            placeholder="Search jobs..."
+        >
+
+        <div id="jobList">
+            <p>Loading jobs...</p>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="../js/api.js"></script>
+<script src="../js/employer.js"></script>
+
+</body>
+</html>
