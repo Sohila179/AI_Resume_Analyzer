@@ -4,12 +4,27 @@ async function apiRequest(endpoint, options = {}) {
 
     try {
 
+        const requestOptions = {
+            ...options,
+            credentials: "include",
+            headers: {
+                Accept: "application/json",
+                ...(options.headers || {})
+            }
+        };
+
+        if (
+            requestOptions.body &&
+            !(requestOptions.body instanceof FormData) &&
+            typeof requestOptions.body === "object"
+        ) {
+            requestOptions.headers["Content-Type"] = "application/json";
+            requestOptions.body = JSON.stringify(requestOptions.body);
+        }
+
         const response = await fetch(
             `${API_BASE_URL}${endpoint}`,
-            {
-                ...options,
-                credentials: "include"
-            }
+            requestOptions
         );
 
         const text = await response.text();
@@ -42,9 +57,7 @@ async function apiRequest(endpoint, options = {}) {
                 throw new Error(String(data.detail));
             }
 
-            throw new Error(
-                `Request failed: ${response.status}`
-            );
+            throw new Error(`Request failed (${response.status})`);
         }
 
         return data;
@@ -53,7 +66,12 @@ async function apiRequest(endpoint, options = {}) {
 
         console.error("API Request Error:", error);
 
+        if (error instanceof TypeError) {
+            throw new Error(
+                "Unable to reach the API. Make sure FastAPI is running at http://127.0.0.1:8000."
+            );
+        }
+
         throw error;
     }
 }
-

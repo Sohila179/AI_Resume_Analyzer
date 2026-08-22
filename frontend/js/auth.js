@@ -12,28 +12,31 @@ if (registerForm) {
 
         event.preventDefault();
 
-        const username = document.getElementById("username").value;
-        const email = document.getElementById("email").value;
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
         const role = document.getElementById("role").value;
 
         const message = document.getElementById("registerMessage");
 
         message.textContent = "Creating account...";
+        message.className = "message";
 
         try {
 
-            const result = await apiRequest("/Register", {
+            console.log("Sending registration request...");
 
+            const result = await apiRequest("/Register", {
                 method: "POST",
 
                 headers: {
+                    "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
 
                 body: JSON.stringify({
-                    username: username,
                     email: email,
+                    username: username,
                     password: password,
                     role: role
                 })
@@ -41,8 +44,8 @@ if (registerForm) {
 
             console.log("Register response:", result);
 
-            message.textContent =
-                "Account created successfully!";
+            message.textContent = "Account created successfully!";
+            message.className = "message success";
 
             setTimeout(() => {
                 window.location.href = "login.html";
@@ -54,6 +57,8 @@ if (registerForm) {
 
             message.textContent =
                 error.message || "Registration failed.";
+
+            message.className = "message error";
         }
     });
 }
@@ -69,20 +74,23 @@ if (loginForm) {
 
         event.preventDefault();
 
-        const email = document.getElementById("email").value;
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
 
         const message = document.getElementById("loginMessage");
 
         message.textContent = "Logging in...";
+        message.className = "message";
 
         try {
 
-            const result = await apiRequest("/login", {
+            console.log("Sending login request...");
 
+            const result = await apiRequest("/login", {
                 method: "POST",
 
                 headers: {
+                    "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
 
@@ -94,8 +102,8 @@ if (loginForm) {
 
             console.log("Login response:", result);
 
-            message.textContent =
-                "Login successful!";
+            message.textContent = "Login successful!";
+            message.className = "message success";
 
             setTimeout(() => {
                 window.location.href = "dashboard.html";
@@ -107,6 +115,8 @@ if (loginForm) {
 
             message.textContent =
                 error.message || "Login failed.";
+
+            message.className = "message error";
         }
     });
 }

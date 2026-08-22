@@ -6,57 +6,69 @@
     <title>Login - AI Resume Analyzer</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<body class="auth-page">
 
-<main class="auth-container">
-    <div class="auth-card">
+<main class="auth-shell">
+    <aside class="auth-visual">
+        <div class="brand-lockup">
+            <span class="brand-mark">✦</span>
+            <span>AI Resume Analyzer</span>
+        </div>
 
-        <h1>Welcome Back</h1>
+        <div class="auth-hero">
+            <span class="eyebrow">Career intelligence</span>
+            <h1>Turn your resume into your next move.</h1>
+            <p>Match your experience to the right jobs, surface skill gaps, and plan a smarter career path with AI.</p>
 
-        <p class="auth-subtitle">
-            Login to your AI Resume Analyzer account
-        </p>
+            <div class="auth-feature-list">
+                <div class="auth-feature">
+                    <span class="feature-mark">✓</span>
+                    <div>
+                        <strong>Resume analysis</strong>
+                        <p>Instant scoring and role-based insights.</p>
+                    </div>
+                </div>
+                <div class="auth-feature">
+                    <span class="feature-mark">◎</span>
+                    <div>
+                        <strong>Job matching</strong>
+                        <p>Discover opportunities that fit your profile.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <section class="auth-card">
+        <div class="auth-header">
+            <span class="eyebrow">Welcome back</span>
+            <h1>Sign in</h1>
+            <p class="auth-subtitle">Access your AI career dashboard.</p>
+        </div>
 
         <form id="loginForm">
-
             <div class="form-group">
                 <label for="email">Email</label>
-                <input
-                    type="text"
-                    id="email"
-                    placeholder="Enter your Email"
-                    required
-                >
+                <input type="email" id="email" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    required
-                >
+                <input type="password" id="password" placeholder="Enter your password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary auth-button">
-                Login
-            </button>
-
+            <button type="submit" class="btn btn-primary auth-button">Login</button>
         </form>
 
         <p id="loginMessage" class="message"></p>
 
         <p class="auth-footer">
-            Don't have an account?
+            Don’t have an account?
             <a href="register.html">Create one</a>
         </p>
 
-        <a href="../index.html" class="back-link">
-            ? Back to Home
-        </a>
-
-    </div>
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </section>
 </main>
 
 <script src="../js/api.js"></script>

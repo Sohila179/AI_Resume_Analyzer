@@ -12,6 +12,7 @@ from routers import auth
 from routers import job_matching
 from routers.resume import resume_router
 from routers import career_advisor
+from fastapi.middleware.cors import CORSMiddleware
 Base.metadata.create_all(bind=engine)
 settings = Settings()
 
@@ -20,6 +21,14 @@ app = FastAPI(
     version=settings.APP_VERSION,
     description=settings.APP_DESCRIPTION,
     url=settings.DATABASE_URL
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(auth.router)

@@ -1,42 +1,61 @@
 import os
-import time
+import json
 
 from dotenv import load_dotenv
 from google import genai
-from google.genai import errors
 from sentence_transformers import SentenceTransformer
 
 from rag.retriever import search
 
 
-load_dotenv()
+# =========================================================
+# ENVIRONMENT
+# =========================================================
 
+load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
-    raise ValueError("GEMINI_API_KEY was not found.")
+    raise ValueError(
+        "GEMINI_API_KEY was not found."
+    )
 
+
+# =========================================================
+# GEMINI CLIENT
+# =========================================================
 
 client = genai.Client(
     api_key=api_key
 )
 
 
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+# =========================================================
+# MODELS
+# =========================================================
 
-# استخدم موديل متاح في حسابك
-LLM_MODELS = [
-    "gemini-3.6-flash",
-    "gemini-3.5-flash",
-]
+EMBEDDING_MODEL = (
+    "sentence-transformers/all-MiniLM-L6-v2"
+)
 
+LLM_MODEL = "gemini-3.6-flash"
+
+
+# =========================================================
+# CAREER ADVISOR
+# =========================================================
 
 class CareerAdvisor:
 
-    def __init__(self, chunks, index):
+    def __init__(
+        self,
+        chunks,
+        index
+    ):
 
         self.chunks = chunks
+
         self.index = index
 
         self.embedding_model = SentenceTransformer(
@@ -44,11 +63,15 @@ class CareerAdvisor:
         )
 
 
-    # =========================================================
-    # RETRIEVAL
-    # =========================================================
+    # =====================================================
+    # RETRIEVE CONTEXT
+    # =====================================================
 
-    def retrieve_context(self, question, top_k=5):
+    def retrieve_context(
+        self,
+        question,
+        top_k=3
+    ):
 
         results = search(
             question,
@@ -57,61 +80,53 @@ class CareerAdvisor:
             self.embedding_model,
             top_k=top_k
         )
-        print("\n" + "=" * 80)
-        print("RETRIEVER QUESTION:")
-        print(question)
-
-        print("\nRETRIEVED CONTEXT:")
-        print("=" * 80)
 
         context_parts = []
 
-        for i, result in enumerate(results, start=1):
+        for i, result in enumerate(
+            results,
+            start=1
+        ):
 
             context_parts.append(
                 f"""
 --- Context {i} ---
+Source: {result["source"]}
 
-Source:
-{result["source"]}
-
-Content:
 {result["content"]}
 """
             )
-         
-    
-        return "\n".join(context_parts)
+
+        return "\n".join(
+            context_parts
+        )
 
 
-    # =========================================================
-    # PROMPT
-    # =========================================================
+    # =====================================================
+    # BUILD NORMAL CAREER ADVISOR PROMPT
+    # =====================================================
 
-    def build_prompt(self, question, context):
+    def build_prompt(
+        self,
+        question,
+        context
+    ):
 
         return f"""
-You are an AI Career Advisor.
+You are a Career Advisor.
 
-Your job is to help users improve their careers based
-ONLY on the provided knowledge base.
+Answer the user's question using ONLY
+the provided knowledge base.
 
-You MUST use the retrieved knowledge base.
-
-Do not invent facts that are not supported by the
-knowledge base.
-
-If the knowledge base does not contain enough information,
-say:
+If the answer cannot be found in the
+knowledge base, say:
 
 "I don't have enough information in the provided knowledge base."
 
-However, when the knowledge base contains relevant
-information, provide a useful and structured answer.
+Do not invent information.
+Do not use outside knowledge.
 
-Use clear sections when appropriate.
-
-Knowledge Base:
+Knowledge Base Context:
 {context}
 
 User Question:
@@ -121,81 +136,32 @@ Answer:
 """
 
 
-    # =========================================================
-    # GEMINI
-    # =========================================================
+    # =====================================================
+    # GENERATE ANSWER
+    # =====================================================
 
-    def generate_answer(self, prompt):
+    def generate_answer(
+        self,
+        prompt
+    ):
 
-        last_error = None
-
-        for model in LLM_MODELS:
-
-            for attempt in range(3):
-
-                try:
-
-                    print(
-                        f"Calling Gemini model: {model} "
-                        f"(attempt {attempt + 1})"
-                    )
-
-                    response = client.models.generate_content(
-                        model=model,
-                        contents=prompt
-                    )
-
-                    if response.text:
-
-                        return response.text
-
-                    return "Gemini returned an empty response."
-
-                except errors.ServerError as e:
-
-                    last_error = e
-
-                    print(
-                        f"Gemini server error with {model}: {e}"
-                    )
-
-                    # 503 = temporary server overload
-                    if getattr(e, "status_code", None) == 503:
-
-                        wait_time = 2 ** attempt
-
-                        print(
-                            f"Retrying in {wait_time} seconds..."
-                        )
-
-                        time.sleep(wait_time)
-
-                        continue
-
-                    break
-
-                except Exception as e:
-
-                    last_error = e
-
-                    print(
-                        f"Gemini error with {model}: {e}"
-                    )
-
-                    break
-
-
-        raise RuntimeError(
-            f"Gemini API failed after retries. "
-            f"Last error: {last_error}"
+        response = client.models.generate_content(
+            model=LLM_MODEL,
+            contents=prompt
         )
 
+        return response.text
 
-    # =========================================================
-    # ASK
-    # =========================================================
 
-    def ask(self, question, top_k=5):
+    # =====================================================
+    # ASK CAREER QUESTION
+    # =====================================================
+
+    def ask(
+        self,
+        question,
+        top_k=3
+    ):
 
         context = self.retrieve_context(
             question,
@@ -218,29 +184,633 @@ Answer:
         }
 
 
-# =============================================================
-# TEST
-# =============================================================
+    # =====================================================
+    # GENERATE STRUCTURED CAREER ROADMAP
+    # =====================================================
+
+    def generate_roadmap(
+        self,
+        resume_data,
+        missing_skills=None,
+        target_role="AI Engineer"
+    ):
+
+        """
+        Generate a personalized structured
+        learning roadmap.
+
+        The returned object is JSON-compatible
+        and can be rendered directly by the frontend.
+        """
+
+        if missing_skills is None:
+            missing_skills = []
+
+
+        # -------------------------------------------------
+        # Normalize missing skills
+        # -------------------------------------------------
+
+        if not isinstance(
+            missing_skills,
+            list
+        ):
+
+            missing_skills = [
+                str(missing_skills)
+            ]
+
+
+        missing_skills = [
+            str(skill).strip()
+            for skill in missing_skills
+            if str(skill).strip()
+        ]
+
+
+        # -------------------------------------------------
+        # Normalize resume data
+        # -------------------------------------------------
+
+        if resume_data is None:
+
+            resume_data = {}
+
+
+        if isinstance(
+            resume_data,
+            str
+        ):
+
+            resume_text = resume_data
+
+        else:
+
+            resume_text = json.dumps(
+                resume_data,
+                ensure_ascii=False,
+                indent=2,
+                default=str
+            )
+
+
+        missing_skills_text = ", ".join(
+            missing_skills
+        )
+
+
+        # -------------------------------------------------
+        # Retrieve career knowledge
+        # -------------------------------------------------
+
+        knowledge_question = f"""
+Create a career learning roadmap for someone
+who wants to become {target_role}.
+
+Important missing skills:
+{missing_skills_text}
+"""
+
+        try:
+
+            context = self.retrieve_context(
+                knowledge_question,
+                top_k=5
+            )
+
+        except Exception as error:
+
+            print(
+                "Roadmap retrieval warning:",
+                error
+            )
+
+            context = ""
+
+
+        # -------------------------------------------------
+        # ROADMAP PROMPT
+        # -------------------------------------------------
+
+        prompt = f"""
+You are an expert AI Career Advisor
+and Learning Path Designer.
+
+Your task is to create a personalized,
+sequential career learning roadmap.
+
+TARGET ROLE:
+{target_role}
+
+CANDIDATE RESUME:
+{resume_text}
+
+MISSING SKILLS:
+{missing_skills_text}
+
+KNOWLEDGE BASE:
+{context}
+
+==================================================
+IMPORTANT RULES
+==================================================
+
+1. Analyze the candidate's current skills.
+
+2. Use the missing skills to determine
+   what should be learned next.
+
+3. Do not create a completely generic roadmap.
+
+4. The roadmap must progress from the
+   candidate's current level toward the
+   target role.
+
+5. Each step must build on previous steps.
+
+6. Include practical projects.
+
+7. Include estimated duration.
+
+8. Include the skills learned in every step.
+
+9. Explain why every step matters.
+
+10. The final step should lead toward
+    the target role.
+
+11. Keep the roadmap realistic.
+
+12. Do not include unnecessary skills
+    unrelated to the target role.
+
+==================================================
+OUTPUT FORMAT
+==================================================
+
+Return ONLY valid JSON.
+
+Do NOT return Markdown.
+
+Do NOT use:
+
+```json
+
+Do NOT add explanations outside JSON.
+
+Use exactly this structure:
+
+{{
+    "target_role": "{target_role}",
+
+    "current_level": "string",
+
+    "estimated_duration": "string",
+
+    "current_skills": [
+        "skill 1",
+        "skill 2"
+    ],
+
+    "missing_skills": [
+        "skill 1",
+        "skill 2"
+    ],
+
+    "roadmap": [
+        {{
+            "step": 1,
+
+            "title": "Learning Phase Title",
+
+            "description": "Short explanation of this phase.",
+
+            "duration": "2 weeks",
+
+            "skills": [
+                "Skill 1",
+                "Skill 2",
+                "Skill 3"
+            ],
+
+            "projects": [
+                "Practical project"
+            ],
+
+            "why_it_matters":
+                "Explain why this phase is important.",
+
+            "status": "recommended"
+        }}
+    ],
+
+    "final_goal": {{
+        "title": "{target_role}",
+
+        "description":
+            "Description of the final career goal."
+    }}
+}}
+
+==================================================
+QUALITY REQUIREMENTS
+==================================================
+
+Create between 4 and 7 roadmap steps.
+
+Each step must have:
+
+- step
+- title
+- description
+- duration
+- skills
+- projects
+- why_it_matters
+- status
+
+The roadmap should look like a real
+professional learning journey.
+
+Make the sequence logical.
+
+Example progression:
+
+Current Skills
+      ↓
+Foundations
+      ↓
+Core Technical Skills
+      ↓
+Advanced Skills
+      ↓
+Projects
+      ↓
+Deployment / Professional Skills
+      ↓
+Target Role
+
+But customize the actual roadmap
+according to the candidate.
+
+Return JSON only.
+"""
+
+
+        # -------------------------------------------------
+        # CALL GEMINI
+        # -------------------------------------------------
+
+        response = client.models.generate_content(
+            model=LLM_MODEL,
+            contents=prompt
+        )
+
+
+        raw_text = (
+            response.text
+            if response.text
+            else ""
+        )
+
+
+        raw_text = raw_text.strip()
+
+
+        # -------------------------------------------------
+        # REMOVE MARKDOWN FENCES
+        # -------------------------------------------------
+
+        if raw_text.startswith(
+            "```json"
+        ):
+
+            raw_text = raw_text[
+                len("```json"):
+            ]
+
+
+        elif raw_text.startswith(
+            "```"
+        ):
+
+            raw_text = raw_text[
+                len("```"):
+            ]
+
+
+        if raw_text.endswith(
+            "```"
+        ):
+
+            raw_text = raw_text[
+                :-3
+            ]
+
+
+        raw_text = raw_text.strip()
+
+
+        # -------------------------------------------------
+        # PARSE JSON
+        # -------------------------------------------------
+
+        try:
+
+            roadmap = json.loads(
+                raw_text
+            )
+
+        except json.JSONDecodeError:
+
+            # Try extracting JSON object
+            # if Gemini accidentally added text.
+
+            start = raw_text.find(
+                "{"
+            )
+
+            end = raw_text.rfind(
+                "}"
+            )
+
+
+            if (
+                start != -1
+                and end != -1
+                and end > start
+            ):
+
+                json_text = raw_text[
+                    start:end + 1
+                ]
+
+                try:
+
+                    roadmap = json.loads(
+                        json_text
+                    )
+
+                except json.JSONDecodeError as error:
+
+                    raise ValueError(
+                        "Gemini returned invalid roadmap JSON."
+                    ) from error
+
+            else:
+
+                raise ValueError(
+                    "Gemini returned invalid roadmap JSON."
+                )
+
+
+        # -------------------------------------------------
+        # VALIDATE BASIC STRUCTURE
+        # -------------------------------------------------
+
+        if not isinstance(
+            roadmap,
+            dict
+        ):
+
+            raise ValueError(
+                "Roadmap response must be a JSON object."
+            )
+
+
+        if not isinstance(
+            roadmap.get(
+                "roadmap"
+            ),
+            list
+        ):
+
+            roadmap["roadmap"] = []
+
+
+        if not isinstance(
+            roadmap.get(
+                "current_skills"
+            ),
+            list
+        ):
+
+            roadmap["current_skills"] = []
+
+
+        if not isinstance(
+            roadmap.get(
+                "missing_skills"
+            ),
+            list
+        ):
+
+            roadmap["missing_skills"] = (
+                missing_skills
+            )
+
+
+        # -------------------------------------------------
+        # NORMALIZE ROADMAP STEPS
+        # -------------------------------------------------
+
+        normalized_steps = []
+
+
+        for index, step in enumerate(
+            roadmap["roadmap"],
+            start=1
+        ):
+
+            if not isinstance(
+                step,
+                dict
+            ):
+
+                continue
+
+
+            skills = step.get(
+                "skills",
+                []
+            )
+
+
+            if not isinstance(
+                skills,
+                list
+            ):
+
+                skills = [
+                    str(skills)
+                ]
+
+
+            projects = step.get(
+                "projects",
+                []
+            )
+
+
+            if not isinstance(
+                projects,
+                list
+            ):
+
+                projects = [
+                    str(projects)
+                ]
+
+
+            normalized_steps.append(
+                {
+                    "step": index,
+
+                    "title": str(
+                        step.get(
+                            "title",
+                            f"Learning Phase {index}"
+                        )
+                    ),
+
+                    "description": str(
+                        step.get(
+                            "description",
+                            ""
+                        )
+                    ),
+
+                    "duration": str(
+                        step.get(
+                            "duration",
+                            "Flexible"
+                        )
+                    ),
+
+                    "skills": [
+                        str(skill)
+                        for skill in skills
+                    ],
+
+                    "projects": [
+                        str(project)
+                        for project in projects
+                    ],
+
+                    "why_it_matters": str(
+                        step.get(
+                            "why_it_matters",
+                            ""
+                        )
+                    ),
+
+                    "status": str(
+                        step.get(
+                            "status",
+                            "recommended"
+                        )
+                    )
+                }
+            )
+
+
+        roadmap["roadmap"] = (
+            normalized_steps
+        )
+
+
+        # -------------------------------------------------
+        # FINAL NORMALIZATION
+        # -------------------------------------------------
+
+        roadmap["target_role"] = str(
+            roadmap.get(
+                "target_role",
+                target_role
+            )
+        )
+
+
+        roadmap["current_level"] = str(
+            roadmap.get(
+                "current_level",
+                "Entry Level"
+            )
+        )
+
+
+        roadmap["estimated_duration"] = str(
+            roadmap.get(
+                "estimated_duration",
+                "Flexible"
+            )
+        )
+
+
+        roadmap["final_goal"] = (
+            roadmap.get(
+                "final_goal",
+                {
+                    "title": target_role,
+                    "description":
+                        f"Become a qualified {target_role}."
+                }
+            )
+        )
+
+
+        if not isinstance(
+            roadmap["final_goal"],
+            dict
+        ):
+
+            roadmap["final_goal"] = {
+                "title": target_role,
+                "description":
+                    f"Become a qualified {target_role}."
+            }
+
+
+        return roadmap
+
+
+# =========================================================
+# LOCAL TEST
+# =========================================================
 
 if __name__ == "__main__":
 
-    from rag.document_loader import load_documents
-    from rag.chunking import split_documents
-    from rag.embeddings import create_embeddings
-    from rag.vector_store import create_vector_store
+    from rag.document_loader import (
+        load_documents
+    )
 
+    from rag.chunking import (
+        split_documents
+    )
 
-    print("Loading knowledge base...")
+    from rag.embeddings import (
+        create_embeddings
+    )
 
-    documents = load_documents()
-
-    print(
-        f"Documents: {len(documents)}"
+    from rag.vector_store import (
+        create_vector_store
     )
 
 
+    print(
+        "Loading knowledge base..."
+    )
+
+
+    documents = load_documents()
+
     chunks = split_documents(
         documents
+    )
+
+
+    print(
+        f"Documents: {len(documents)}"
     )
 
     print(
@@ -248,18 +818,25 @@ if __name__ == "__main__":
     )
 
 
-    print("\nCreating embeddings...")
+    print(
+        "\nCreating embeddings..."
+    )
+
 
     embeddings = create_embeddings(
         chunks
     )
+
 
     print(
         f"Embeddings shape: {embeddings.shape}"
     )
 
 
-    print("\nCreating FAISS index...")
+    print(
+        "\nCreating FAISS index..."
+    )
+
 
     index = create_vector_store(
         chunks,
@@ -273,30 +850,120 @@ if __name__ == "__main__":
     )
 
 
+    # =====================================================
+    # TEST NORMAL CAREER ADVISOR
+    # =====================================================
+
     question = (
         "What skills do I need "
         "to become an AI Engineer?"
     )
 
 
-    print("\nQuestion:")
-    print(question)
+    print(
+        "\nQuestion:"
+    )
 
-
-    print("\nGenerating answer...")
-
-
-    result = advisor.ask(
-        question,
-        top_k=5
+    print(
+        question
     )
 
 
-    print("\n" + "=" * 60)
-    print("ANSWER")
-    print("=" * 60)
+    print(
+        "\nGenerating answer..."
+    )
+
+
+    result = advisor.ask(
+        question
+    )
+
+
+    print(
+        "\n" + "=" * 60
+    )
+
+    print(
+        "ANSWER"
+    )
+
+    print(
+        "=" * 60
+    )
 
 
     print(
         result["answer"]
+    )
+
+
+    # =====================================================
+    # TEST ROADMAP
+    # =====================================================
+
+    print(
+        "\n" + "=" * 60
+    )
+
+    print(
+        "GENERATING CAREER ROADMAP"
+    )
+
+    print(
+        "=" * 60
+    )
+
+
+    test_resume = {
+
+        "name": "Candidate",
+
+        "job_title": "Junior AI Engineer",
+
+        "skills": [
+            "Python",
+            "Pandas",
+            "NumPy",
+            "SQL",
+            "Scikit-learn"
+        ],
+
+        "education": [
+            "Computer Science"
+        ],
+
+        "experience": [
+            "Machine Learning projects"
+        ]
+    }
+
+
+    test_missing_skills = [
+
+        "Deep Learning",
+
+        "PyTorch",
+
+        "Docker",
+
+        "MLOps"
+
+    ]
+
+
+    roadmap = advisor.generate_roadmap(
+        resume_data=test_resume,
+
+        missing_skills=test_missing_skills,
+
+        target_role="AI Engineer"
+    )
+
+
+    print(
+        json.dumps(
+            roadmap,
+            ensure_ascii=False,
+            indent=2
+        )
     )
